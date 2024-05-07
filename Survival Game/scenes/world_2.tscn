@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bll75nbgnux8j"]
+
+[node name="world2" type="Node2D"]
+
+[node name="world2main" type="Node2D" parent="."]
+
+[node name="world2cutscene" type="Node2D" parent="."]
