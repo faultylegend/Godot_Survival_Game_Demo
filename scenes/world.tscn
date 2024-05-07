@@ -755,24 +755,34 @@ layer_2/name = "ysort"
 layer_2/y_sort_enabled = true
 layer_2/tile_data = PackedInt32Array(196609, 524291, 0, 262144, 1114115, 1, 327681, 524291, 2, 393218, 1114115, 0, 458755, 1114115, 0, 524291, 524291, 0, 524289, 524291, 2, 589823, 524291, 1, 589818, 1114115, 1, 65530, 524291, 2, 131068, 524291, 1, 196602, 524291, 0, 131079, 1114115, 0, 131078, 1114115, 0, 196614, 1114115, 1, 327690, 1114115, 1, 393224, 524291, 0, 458759, 1114115, 1, 327686, 524291, 1, 196620, 1114115, 0, 458763, 1114115, 1, 524297, 1114115, 2, 196617, 524291, 1, 65546, 1114115, 1, -196601, 524291, 0, -196602, 524291, 0, -131068, 1114115, 1, -196598, 524291, 0, -65527, 1114115, 2, 7, 524291, 1, 5, 1114115, 1, 655353, 196611, 0, 720889, 196611, 1, 655354, 262147, 0, 720890, 262147, 1, 655355, 327683, 0, 720891, 262147, 1, 720892, 327683, 0, 655358, 196611, 0, 720894, 196611, 1, 655359, 262147, 0, 720895, 262147, 1, 589824, 262147, 0, 655360, 262147, 1, 589825, 262147, 0, 655361, 262147, 1, 589826, 327683, 0, 655362, 327683, 1, 655364, 196611, 0, 655365, 262147, 0, 655366, 262147, 1, 655367, 262147, 1, 655368, 262147, 1, 655369, 262147, 1, 655370, 262147, 1, 655371, 262147, 1, 655372, 262147, 1, 589830, 196611, 0, 589831, 262147, 0, 589832, 262147, 0, 589833, 262147, 0, 589834, 262147, 0, 589835, 262147, 0, 589836, 262147, 0, 327673, 1114115, 1, 393209, 1114115, 0, 524286, 1114115, 1, 196606, 1114115, 2, -65529, 1114115, 0, 8, 1114115, 1, -196599, 1114115, 2, -131062, 1114115, 0)
 
-[node name="Apple_Trees" type="Node" parent="."]
-
-[node name="apple_tree" parent="Apple_Trees" instance=ExtResource("6_acupw")]
-position = Vector2(257, -54)
+[node name="Apple_Trees" type="Node2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
 
 [node name="apple_tree2" parent="Apple_Trees" instance=ExtResource("6_acupw")]
-position = Vector2(9, 122)
+z_as_relative = false
+position = Vector2(12, 121)
+
+[node name="apple_tree" parent="Apple_Trees" instance=ExtResource("6_acupw")]
+z_as_relative = false
+position = Vector2(238, -47)
 
 [node name="Sticks" type="Node" parent="."]
 
 [node name="stick_collectable" parent="Sticks" instance=ExtResource("7_2cgni")]
+z_index = -1
+z_as_relative = false
 position = Vector2(180, -10)
 
 [node name="stick_collectable2" parent="Sticks" instance=ExtResource("7_2cgni")]
+z_index = -1
+z_as_relative = false
 position = Vector2(258, 20)
 
 [node name="stick_collectable3" parent="Sticks" instance=ExtResource("7_2cgni")]
+z_index = -1
+z_as_relative = false
 position = Vector2(224, 63)
 
 [node name="slime" parent="." instance=ExtResource("8_lq27k")]
-position = Vector2(342, -31)
+position = Vector2(356, -66)
