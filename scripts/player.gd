@@ -10,9 +10,10 @@ var health : int
 const walk_speed = 125
 var facing_direction : Vector2 = Vector2.ZERO
 var shooting : bool
+var meleeing : bool
 var bow_equipt = true
-var bow_cooldown = true
-var arror = preload("res://scenes/arrow.tscn")
+var sword_equipt = true
+var arrow = preload("res://scenes/arrow.tscn")
 
 func player():
 	pass
@@ -20,6 +21,7 @@ func player():
 func _ready():
 	animation_tree.active = true
 	shooting = false
+	meleeing = false
 	health = 5
 	update_animation_parameters()
 
@@ -33,7 +35,7 @@ func _physics_process(_delta):
 		health = 0
 	
 	if direction and health:
-		if !shooting:
+		if !shooting and !meleeing:
 			velocity = direction * walk_speed
 		else:
 			velocity = direction * 65
@@ -58,7 +60,7 @@ func update_animation_parameters():
 	if Input.is_action_just_pressed("shoot") and !shooting and bow_equipt:
 		animation_tree["parameters/conditions/shoot"] = true
 		shooting = true
-		var arrow_instance = arror.instantiate()
+		var arrow_instance = arrow.instantiate()
 		arrow_instance.rotation = $Marker2D.rotation
 		arrow_instance.global_position = $Marker2D.global_position
 		add_child(arrow_instance)
@@ -66,6 +68,14 @@ func update_animation_parameters():
 		$Attack_Timer.start()
 	else:
 		animation_tree["parameters/conditions/shoot"] = false
+	
+	if Input.is_action_just_pressed("melee") and !meleeing and sword_equipt:
+		animation_tree["parameters/conditions/melee"] = true
+		meleeing = true
+		$Attack_Timer.wait_time = 0.5
+		$Attack_Timer.start()
+	else:
+		animation_tree["parameters/conditions/melee"] = false
 	
 	if health == 0:
 		animation_tree["parameters/conditions/no_health"] = true
@@ -77,10 +87,12 @@ func update_animation_parameters():
 	animation_tree["parameters/Death/blend_position"]= facing_direction
 	if !shooting:
 		animation_tree["parameters/Shoot/blend_position"]= attack_direction
-
+	if !meleeing:
+		animation_tree["parameters/Melee/blend_position"]= attack_direction
 
 func _on_shooting_timer_timeout():
 	shooting = false
+	meleeing = false
 
 func collect(item):
 	inv.insert(item)
