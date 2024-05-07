@@ -35,7 +35,7 @@ func _physics_process(_delta):
 		health = 0
 	
 	if direction and health:
-		if !shooting:
+		if !shooting and !meleeing:
 			velocity = direction * walk_speed
 		else:
 			velocity = direction * 65
