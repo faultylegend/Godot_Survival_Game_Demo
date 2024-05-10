@@ -7,19 +7,37 @@ var player_entered_area = false
 var player = null
 
 var is_path_following = false
+var smoke_effect_finish = false
+var smoke_effect = false
 
 func _ready():
 	camera.enabled = false
 	$world2cutscene.visible = true
 	$world2main.visible = false
+	$world2cutscene/Path2D/PathFollow2D.progress_ratio = 0
 
 func _physics_process(delta):
 	if play_cutscene and is_path_following:
 		var path_follower = $world2cutscene/Path2D/PathFollow2D
-		path_follower.progress_ratio += 0.001
+		if !smoke_effect:
+			path_follower.progress_ratio += 0.0015
 		
 		if path_follower.progress_ratio >= 0.99:
 			end_cutscene()
+		
+		if path_follower.progress_ratio >= 0.96 and !smoke_effect_finish and !smoke_effect:
+			var smoke_screen = $world2cutscene/SmokeScreen
+			smoke_effect = true
+			for smoke in smoke_screen.get_children():
+				smoke["emitting"] = true
+			await get_tree().create_timer(1.5).timeout
+			$world2cutscene/TileMapFinished.visible = true
+			$world2cutscene/TileMapUnfinished.visible = false
+			for smoke in smoke_screen.get_children():
+				smoke["emitting"] = false
+			await get_tree().create_timer(0.5).timeout
+			smoke_effect_finish = true
+			smoke_effect = false
 
 func _on_player_detection_body_entered(body):
 	if body.has_method("player") and !player_entered_area:

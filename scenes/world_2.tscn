@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://bll75nbgnux8j"]
+[gd_scene load_steps=18 format=3 uid="uid://bll75nbgnux8j"]
 
 [ext_resource type="Texture2D" uid="uid://exkye45t8ux7" path="res://art/environment/survivalgame-terrian-cliffs.png" id="1_14yyg"]
 [ext_resource type="Script" path="res://scripts/world_2.gd" id="1_i6lh4"]
 [ext_resource type="Texture2D" uid="uid://dqkg8knngoah0" path="res://art/environment/survivalgame-terrian-defult.png" id="2_de3nq"]
 [ext_resource type="Texture2D" uid="uid://d3owr4etsjyuo" path="res://art/environment/survivalgame-terrian-water.png" id="3_v4s6t"]
 [ext_resource type="Texture2D" uid="uid://dvs3ufkvldo5t" path="res://art/environment/survivalgame-trees.png" id="4_be4ul"]
+[ext_resource type="Texture2D" uid="uid://b2laf6wi51qfv" path="res://art/SmokePartical.png" id="6_0md4h"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1q0c3"]
 texture = ExtResource("1_14yyg")
@@ -732,6 +733,21 @@ sources/1 = SubResource("TileSetAtlasSource_13iug")
 sources/2 = SubResource("TileSetAtlasSource_danon")
 sources/3 = SubResource("TileSetAtlasSource_8686t")
 
+[sub_resource type="Animation" id="Animation_ptw7c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0.784314)]
+}
+
 [sub_resource type="Animation" id="Animation_47sda"]
 resource_name = "cover_fade"
 length = 5.0
@@ -748,21 +764,6 @@ tracks/0/keys = {
 "values": [Color(0, 0, 0, 0.784314), Color(0, 0, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_ptw7c"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0, 0, 0.784314)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2upom"]
 _data = {
 "RESET": SubResource("Animation_ptw7c"),
@@ -777,6 +778,15 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 144, 455, 0, 0, 0, 0, -137, 543, 0, 0, 0, 0, -99, 796, 0, 0, 0, 0, 368, 796)
 }
 point_count = 4
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_f34vu"]
+particle_flag_rotate_y = true
+spread = 180.0
+initial_velocity_min = 1.0
+initial_velocity_max = 1.0
+gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+linear_accel_min = 50.0
+linear_accel_max = 100.0
 
 [node name="world2" type="Node2D"]
 y_sort_enabled = true
@@ -803,6 +813,7 @@ layer_2/tile_data = PackedInt32Array(720903, 393219, 1, 786439, 196611, 1, 85197
 [node name="world2cutscene" type="Node2D" parent="."]
 
 [node name="TileMapFinished" type="TileMap" parent="world2cutscene"]
+visible = false
 y_sort_enabled = true
 tile_set = SubResource("TileSet_447d1")
 format = 2
@@ -852,12 +863,35 @@ shape = SubResource("RectangleShape2D_f1e8i")
 curve = SubResource("Curve2D_mm3nj")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="world2cutscene/Path2D"]
-position = Vector2(144, 455)
-rotation = 2.8381
+position = Vector2(134.022, 796)
+progress = 783.317
 loop = false
 
 [node name="Camera2D" type="Camera2D" parent="world2cutscene/Path2D/PathFollow2D"]
 position = Vector2(-1.25316, 0.655426)
 zoom = Vector2(4, 4)
+
+[node name="SmokeScreen" type="Node2D" parent="world2cutscene"]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="world2cutscene/SmokeScreen"]
+position = Vector2(365, 788)
+emitting = false
+amount = 500
+process_material = SubResource("ParticleProcessMaterial_f34vu")
+texture = ExtResource("6_0md4h")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="world2cutscene/SmokeScreen"]
+position = Vector2(453, 786)
+emitting = false
+amount = 500
+process_material = SubResource("ParticleProcessMaterial_f34vu")
+texture = ExtResource("6_0md4h")
+
+[node name="GPUParticles2D3" type="GPUParticles2D" parent="world2cutscene/SmokeScreen"]
+position = Vector2(408, 789)
+emitting = false
+amount = 500
+process_material = SubResource("ParticleProcessMaterial_f34vu")
+texture = ExtResource("6_0md4h")
 
 [connection signal="body_entered" from="world2cutscene/PlayerDetection" to="." method="_on_player_detection_body_entered"]
