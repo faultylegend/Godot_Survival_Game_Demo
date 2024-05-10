@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://d37vdy8718ome"]
+[gd_scene load_steps=15 format=3 uid="uid://d37vdy8718ome"]
 
 [ext_resource type="PackedScene" uid="uid://ksg7j8vbn5ie" path="res://scenes/player.tscn" id="1_o8fex"]
 [ext_resource type="Texture2D" uid="uid://exkye45t8ux7" path="res://art/environment/survivalgame-terrian-cliffs.png" id="1_t6xo5"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dbjs8sfhi6r4" path="res://scenes/apple_tree.tscn" id="6_acupw"]
 [ext_resource type="PackedScene" uid="uid://dp70k8aqi1gpw" path="res://scenes/stick_collectable.tscn" id="7_2cgni"]
 [ext_resource type="PackedScene" uid="uid://cl6rjg6ufj4b7" path="res://scenes/slime.tscn" id="8_lq27k"]
+[ext_resource type="PackedScene" uid="uid://bll75nbgnux8j" path="res://scenes/world_2.tscn" id="9_qghhw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1q0c3"]
 texture = ExtResource("1_t6xo5")
@@ -786,3 +787,5 @@ position = Vector2(224, 63)
 
 [node name="slime" parent="." instance=ExtResource("8_lq27k")]
 position = Vector2(356, -66)
+
+[node name="world2" parent="." instance=ExtResource("9_qghhw")]

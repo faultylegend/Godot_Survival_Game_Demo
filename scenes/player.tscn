@@ -1052,6 +1052,9 @@ libraries = {
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_33460")
+}
 tree_root = SubResource("AnimationNodeStateMachine_x15eb")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/idle = false
@@ -1077,7 +1080,7 @@ zoom = Vector2(3, 3)
 limit_left = -279
 limit_top = -158
 limit_right = 518
-limit_bottom = 439
+limit_bottom = 875
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 

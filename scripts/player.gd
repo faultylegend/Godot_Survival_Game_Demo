@@ -4,6 +4,7 @@ extends CharacterBody2D
 @export var inv: Inv
 @onready var animation_tree := $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
+@onready var camera := $Camera2D
 var health : int
 # parameters/Idle/blend_position
 
