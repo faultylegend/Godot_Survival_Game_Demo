@@ -1,0 +1,149 @@
+[gd_scene load_steps=12 format=3 uid="uid://dei8udmtlrrrb"]
+
+[ext_resource type="Script" path="res://scenes/npc.gd" id="1_6jqye"]
+[ext_resource type="Texture2D" uid="uid://bk8y2c5w0tclj" path="res://art/character/Human-Worker-Red.png" id="1_f8qbx"]
+
+[sub_resource type="Animation" id="Animation_s5jvf"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_uytsg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_58buq"]
+resource_name = "walk_e"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [49, 50, 51, 52]
+}
+
+[sub_resource type="Animation" id="Animation_lyncn"]
+resource_name = "walk_s"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_p861m"]
+resource_name = "walk_n"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [97, 98, 99, 100]
+}
+
+[sub_resource type="Animation" id="Animation_rviaw"]
+resource_name = "walk_w"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [145, 146, 147, 148]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hbml5"]
+_data = {
+"RESET": SubResource("Animation_uytsg"),
+"idle": SubResource("Animation_s5jvf"),
+"walk_e": SubResource("Animation_58buq"),
+"walk_n": SubResource("Animation_p861m"),
+"walk_s": SubResource("Animation_lyncn"),
+"walk_w": SubResource("Animation_rviaw")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ek0np"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wd8sd"]
+radius = 33.0151
+
+[node name="npc" type="CharacterBody2D"]
+script = ExtResource("1_6jqye")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_f8qbx")
+hframes = 24
+vframes = 8
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_hbml5")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_ek0np")
+
+[node name="chat_detection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chat_detection"]
+shape = SubResource("CircleShape2D_wd8sd")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="body_entered" from="chat_detection" to="." method="_on_chat_detection_body_entered"]
+[connection signal="body_exited" from="chat_detection" to="." method="_on_chat_detection_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
